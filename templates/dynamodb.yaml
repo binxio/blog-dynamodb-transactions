@@ -1,0 +1,40 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'dynamodbtx-example'
+
+Resources:
+  CatsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Cats
+      AttributeDefinitions:
+      - AttributeName: ID
+        AttributeType: S
+      KeySchema:
+      - AttributeName: ID
+        KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  OwnersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Owners
+      AttributeDefinitions:
+        - AttributeName: ID
+          AttributeType: S
+      KeySchema:
+        - AttributeName: ID
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+Outputs:
+  CatsTableArn:
+    Description: The Arn of the cats table
+    Value: !GetAtt CatsTable.Arn
+  OwnersTableArn:
+    Description: The Arn of the owners table
+    Value: !GetAtt OwnersTable.Arn
